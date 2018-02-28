@@ -25,7 +25,7 @@ public class Main {
 		executor.submit(runner);
 	    }
 
-	    while (true) {
+	    while (!executor.isTerminated()) {
 		try {
 		    executor.shutdown();
 		    executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
