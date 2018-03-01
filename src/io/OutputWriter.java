@@ -42,7 +42,7 @@ public class OutputWriter {
     public void write(String path) {
 	String s = format();
 
-	if (!Paths.get(path).toFile().mkdirs()) {
+	if (!Paths.get(path).getParent().toFile().mkdirs()) {
 	    throw new IllegalArgumentException("Couldn't create parent directories of " + path);
 	}
 	try (PrintWriter writer = new PrintWriter(path)) {

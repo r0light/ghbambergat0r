@@ -17,6 +17,10 @@ public class SimpleSolver implements Solver {
     public void compute() {
 	if (problem != null) {
 
+	    System.out.println("start " + problem.name);
+	    System.out.println(problem.noOfRides + "should be " + problem.rides.size());
+	    System.out.println(problem.noOfVehicles + "should be " + problem.vehicles.size());
+
 	    sort();
 	    List<Ride> rides = problem.rides;
 
@@ -40,6 +44,7 @@ public class SimpleSolver implements Solver {
 	    }
 
 	    OutputWriter outputWriter = new OutputWriter(problem);
+	    // outputWriter.print();
 	    outputWriter.write("output/" + problem.name);
 	}
 
