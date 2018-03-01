@@ -36,7 +36,7 @@ public class Main {
 	    for (String input : inputs) {
 		Problem problem = new Parser(Paths.get("input/" + input)).parse();
 		s.problem = problem;
-		Runner runner = new Runner(problem);
+		Runner runner = new Runner(problem, semaphore);
 		executor.submit(runner);
 	    }
 

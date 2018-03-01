@@ -90,9 +90,7 @@ public class Vehicle {
     }
 
     public void tick() {
-	positionX = stopsX.get(0);
-	positionY = stopsY.get(0);
-	stopsX = stopsX.subList(1, stopsX.size() - 1);
-	stopsY = stopsY.subList(1, stopsY.size() - 1);
+	stopsX = stopsX.subList(1, stopsX.size());
+	stopsY = stopsY.subList(1, stopsY.size());
     }
 }
