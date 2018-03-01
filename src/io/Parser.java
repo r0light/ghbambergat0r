@@ -55,7 +55,7 @@ public class Parser {
 	    Problem problem = new Problem(path.getFileName().toString(), rows, columns, vehicles, rides, bonus, steps);
 
 	    List<Vehicle> vehiclesList = new ArrayList<>();
-	    for (int c = 0; c < rides; c++) {
+	    for (int c = 0; c < vehicles; c++) {
 		Vehicle v = new Vehicle(0, 0, 0, new ArrayList<Ride>(), c);
 		vehiclesList.add(v);
 	    }

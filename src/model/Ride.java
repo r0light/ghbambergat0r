@@ -9,6 +9,7 @@ public class Ride {
     public int earliestStart;
     public int latestFinish;
     public int id;
+    public boolean startedInTime;
 
     public Ride(int startX, int startY, int endX, int endY, int earliestStart, int latestFinish, int id) {
 	this.startX = startX;

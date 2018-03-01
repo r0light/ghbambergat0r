@@ -1,8 +1,23 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle {
+
+    public Ride currentRide;
+    public List<Integer> stopsX = new ArrayList<>();
+
+    public int getLastStopX() {
+	return stopsX.get(stopsX.size() - 1);
+    }
+
+    public List<Integer> stopsY = new ArrayList<>();
+
+    public int getLastStopY() {
+	return stopsY.get(stopsY.size() - 1);
+    }
+
     public int time;
     public int positionX;
     public int positionY;
