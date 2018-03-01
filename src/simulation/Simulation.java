@@ -42,7 +42,7 @@ public class Simulation {
 	System.out.println("Starting step-wise simulation ..");
 	// step-wise simulation
 	for (int timestep = 0; timestep < problem.steps; timestep++) {
-	    System.out.println("STEP " + timestep);
+	    // System.out.println("STEP " + timestep);
 
 	    for (Vehicle v : problem.vehicles) {
 
@@ -51,6 +51,9 @@ public class Simulation {
 		    continue;
 		}
 
+		if (v.rides.isEmpty()) {
+		    continue;
+		}
 		// check if we have reached the start of our new ride
 		Ride thisRide = v.rides.get(0);
 		if (thisRide.startX == v.stopsX.get(0) && thisRide.startY == v.stopsY.get(0)) {

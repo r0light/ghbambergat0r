@@ -86,6 +86,20 @@ public class Vehicle {
 		stopsX.add(nextX);
 		stopsY.add(nextY);
 	    }
+
+	    while (newY != getLastStopY()) {
+		int nextY = getLastStopY();
+		int nextX = getLastStopX();
+
+		if (newY < getLastStopY()) {
+		    nextY -= 1;
+		} else {
+		    nextY += 1;
+		}
+
+		stopsX.add(nextX);
+		stopsY.add(nextY);
+	    }
 	}
     }
 

@@ -19,9 +19,9 @@ public class Main {
 
 	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in",
 	// "c_no_hurry.in");
-	List<String> inputs = Arrays.asList("a_example.in");
+	List<String> inputs = Arrays.asList("b_should_be_easy.in");
 
-	boolean doSimulate = false;
+	boolean doSimulate = true;
 	// "c_no_hurry.in", "d_metropolis.in",
 	// "e_high_bonus.in");
 	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in",
