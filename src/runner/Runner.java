@@ -2,7 +2,7 @@ package runner;
 
 import java.util.concurrent.Semaphore;
 
-import algo.SimpleSolver;
+import algo.SwitchSolver;
 import model.Problem;
 
 public class Runner implements Runnable {
@@ -17,7 +17,8 @@ public class Runner implements Runnable {
 
     @Override
     public void run() {
-	SimpleSolver solver = new SimpleSolver(semaphore);
+	// SimpleSolver solver = new SimpleSolver(semaphore);
+	SwitchSolver solver = new SwitchSolver(semaphore);
 	solver.setProblem(this.problem);
 	solver.compute();
     }
