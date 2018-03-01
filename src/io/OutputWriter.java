@@ -1,7 +1,10 @@
 package io;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,17 +53,33 @@ public class OutputWriter {
 
     public void write(String path) {
 	String s = format();
-	semaphore.acquireUninterruptibly();
-	if (!Paths.get(path).getParent().toFile().mkdirs()) {
-	    throw new IllegalArgumentException("Couldn't create parent directories of " + path);
-	}
 
-	try (PrintWriter writer = new PrintWriter(path)) {
-	    writer.print(s);
-	} catch (FileNotFoundException e) {
+	semaphore.acquireUninterruptibly();
+	Path preparedPath = prepareOutputFile(path);
+
+	Charset charset = Charset.forName("US-ASCII");
+	try (BufferedWriter writer = Files.newBufferedWriter(preparedPath, charset)) {
+	    writer.write(s);
+	} catch (IOException e) {
 	    System.err.println("Error writing output file '" + path + "': " + e.getMessage());
 	} finally {
 	    semaphore.release();
 	}
+    }
+
+    private Path prepareOutputFile(String path) {
+	Path file = Paths.get(path);
+	if (!Files.exists(file)) {
+	    try {
+		Files.createDirectories(file.getParent());
+		Files.createFile(file);
+		return file;
+	    } catch (IOException e) {
+		System.out.println(e);
+		e.printStackTrace();
+		return null;
+	    }
+	}
+	return file;
     }
 }
