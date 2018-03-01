@@ -18,15 +18,26 @@ public class Vehicle {
     }
 
     public void addRide(Ride newRide) {
-	rides.add(newRide);
-
 	int timeAtStart = time + Math.abs(newRide.startX - positionX) + Math.abs(newRide.startY - positionY);
 	if (timeAtStart < newRide.earliestStart) {
 	    timeAtStart = newRide.earliestStart;
 	}
-	time = timeAtStart + Math.abs(newRide.endX - newRide.startX) + Math.abs(newRide.endY - newRide.startY);
+	if (makesSense(timeAtStart, newRide)) {
+	    time = timeAtStart + Math.abs(newRide.endX - newRide.startX) + Math.abs(newRide.endY - newRide.startY);
 
-	positionX = newRide.endX;
-	positionY = newRide.endY;
+	    positionX = newRide.endX;
+	    positionY = newRide.endY;
+
+	    rides.add(newRide);
+	}
+    }
+
+    public boolean makesSense(int timeAtStart, Ride newRide) {
+	int expectedEndTime = timeAtStart + Math.abs(newRide.endX - newRide.startX)
+		+ Math.abs(newRide.endY - newRide.startY);
+	if (expectedEndTime <= newRide.latestFinish) {
+	    return true;
+	}
+	return false;
     }
 }
