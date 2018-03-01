@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import model.Problem;
 import model.Ride;
+import model.Vehicle;
 
 public class Parser {
 
@@ -47,9 +49,14 @@ public class Parser {
             }
             Problem problem = new Problem(path.getFileName().toString(), rows, columns, vehicles, rides, bonus, steps);
 
-            // List<Vehi>
+            List<Vehicle> vehiclesList = new ArrayList<>();
+            for (int c = 0; c < rides; c++) {
+                Vehicle v = new Vehicle(0, 0, 0, new ArrayList<Ride>(), c);
+                vehiclesList.add(v);
+            }
 
             problem.rides = ridesList;
+            problem.vehicles = vehiclesList;
 
             return problem;
         } catch (IOException e) {
@@ -79,11 +86,14 @@ public class Parser {
         System.out.println("startX: " + startX);
         int startY = Integer.parseInt(array[1]);
         System.out.println("startY: " + startY);
-
         int endX = Integer.parseInt(array[2]);
+        System.out.println("endX: " + endX);
         int endY = Integer.parseInt(array[3]);
+        System.out.println("endY: " + endY);
         int earliestStart = Integer.parseInt(array[4]);
+        System.out.println("earliestStart: " + earliestStart);
         int latestFinish = Integer.parseInt(array[5]);
+        System.out.println("latestFinish: " + latestFinish);
         int id = -1;
         return new Ride(startX, startY, endX, endY, earliestStart, latestFinish, id);
     }

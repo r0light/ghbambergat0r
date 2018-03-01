@@ -11,7 +11,7 @@ public class ParserTest {
 
     @Test
     public void testParseStringSimple() throws ParserException {
-	Path input = Paths.get("input/example.in");
+	Path input = Paths.get("input/a_example.in");
 	Parser parser = new Parser(input);
 
 	Problem problem = parser.parse();
