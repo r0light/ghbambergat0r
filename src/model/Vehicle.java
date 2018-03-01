@@ -22,17 +22,20 @@ public class Vehicle {
 	if (timeAtStart < newRide.earliestStart) {
 	    timeAtStart = newRide.earliestStart;
 	}
-	if (makesSense(timeAtStart, newRide)) {
-	    time = timeAtStart + Math.abs(newRide.endX - newRide.startX) + Math.abs(newRide.endY - newRide.startY);
 
-	    positionX = newRide.endX;
-	    positionY = newRide.endY;
+	time = timeAtStart + Math.abs(newRide.endX - newRide.startX) + Math.abs(newRide.endY - newRide.startY);
 
-	    rides.add(newRide);
-	}
+	positionX = newRide.endX;
+	positionY = newRide.endY;
+
+	rides.add(newRide);
     }
 
-    public boolean makesSense(int timeAtStart, Ride newRide) {
+    public boolean makesSense(Ride newRide) {
+	int timeAtStart = time + Math.abs(newRide.startX - positionX) + Math.abs(newRide.startY - positionY);
+	if (timeAtStart < newRide.earliestStart) {
+	    timeAtStart = newRide.earliestStart;
+	}
 	int expectedEndTime = timeAtStart + Math.abs(newRide.endX - newRide.startX)
 		+ Math.abs(newRide.endY - newRide.startY);
 	if (expectedEndTime <= newRide.latestFinish) {
