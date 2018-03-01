@@ -4,15 +4,18 @@ import model.Problem;
 
 public class SimpleSolver implements Solver {
 
+    public Problem problem;
+
     @Override
     public void compute() {
-	// TODO Auto-generated method stub
+	if (problem != null) {
+
+	}
 
     }
 
     @Override
     public void setProblem(Problem problem) {
-	// TODO Auto-generated method stub
-
+	this.problem = problem;
     }
 }
