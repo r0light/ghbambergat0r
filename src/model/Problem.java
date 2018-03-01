@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class Problem {
 
     public String name;
@@ -7,7 +9,7 @@ public class Problem {
     public int columns;
 
     public int noOfVehicles;
-    public List<Vehicles> vehicles;
+    public List<Vehicle> vehicles;
 
     public int noOfRides;
     public List<Ride> rides;
