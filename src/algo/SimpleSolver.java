@@ -7,6 +7,7 @@ import io.OutputWriter;
 import model.Problem;
 import model.Ride;
 import model.SortByEarliestStart;
+import model.SortByNearestDistance;
 import model.Vehicle;
 
 public class SimpleSolver implements Solver {
@@ -57,5 +58,6 @@ public class SimpleSolver implements Solver {
 
     private void sort() {
 	Collections.sort(problem.rides, new SortByEarliestStart());
+	Collections.sort(problem.rides, new SortByNearestDistance());
     }
 }
