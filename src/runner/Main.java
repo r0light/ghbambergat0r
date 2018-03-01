@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import io.Parser;
 import io.ParserException;
 import model.Problem;
+import simulation.Simulation;
 
 public class Main {
 
@@ -18,12 +19,18 @@ public class Main {
 	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
 	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in",
 	// "c_no_hurry.in");
-	List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
+	List<String> inputs = Arrays.asList("a_example.in");
+
+	boolean doSimulate = false;
 
 	ExecutorService executor = Executors.newCachedThreadPool();
+
+	Simulation s = new Simulation();
+
 	try {
 	    for (String input : inputs) {
 		Problem problem = new Parser(Paths.get("input/" + input)).parse();
+		s.problem = problem;
 		Runner runner = new Runner(problem);
 		executor.submit(runner);
 	    }
@@ -37,6 +44,9 @@ public class Main {
 	    }
 	} finally {
 	    executor.shutdownNow();
+	}
+	if (doSimulate) {
+	    s.doSimulate();
 	}
     }
 

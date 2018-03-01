@@ -3,12 +3,14 @@ package simulation;
 import model.Problem;
 import model.Ride;
 import model.Vehicle;
+import util.DistanceCalculator;
 
 public class Simulation {
 
     public Problem problem;
 
     public int doSimulate() {
+	System.out.println(" -- SIMULATION --");
 	int score = 0;
 
 	// reset position to start
@@ -27,9 +29,39 @@ public class Simulation {
 	    }
 	}
 
-	Vehicle v = problem.vehicles.get(0);
-	for (int i = 0; i < v.stopsX.size(); i++) {
-	    System.out.println("(" + v.stopsX.get(i) + ", " + v.stopsY.get(i) + ")");
+	// step-wise simulation
+	for (int timestep = 0; timestep < problem.steps; timestep++) {
+
+	    for (Vehicle v : problem.vehicles) {
+
+		if (v.stopsX.isEmpty() || v.stopsY.isEmpty()) {
+		    // this vehicle has reached its final target
+		    continue;
+		}
+
+		// check if we have reached the start of our new ride
+		Ride thisRide = v.rides.get(0);
+		if (thisRide.startX == v.stopsX.get(0) && thisRide.startY == v.stopsY.get(0)) {
+		    // we have reached the start of the next ride
+		    // check if we are in time
+		    if (timestep <= v.currentRide.earliestStart) {
+			v.currentRide.startedInTime = true;
+		    } else {
+			v.currentRide.startedInTime = false;
+		    }
+		    v.tick();
+		    continue;
+		}
+
+		if (thisRide.endX == v.stopsX.get(0) && thisRide.endY == v.stopsY.get(0)) {
+		    score += DistanceCalculator.distance(thisRide);
+		    if (thisRide.startedInTime) {
+			score += problem.bonus;
+		    }
+		    System.out.println("Vehicle " + v.id + " has reached the end for ride " + v.currentRide.id);
+		    System.out.println("new score: " + score);
+		}
+	    }
 	}
 
 	return score;

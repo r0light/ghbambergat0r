@@ -69,24 +69,30 @@ public class Vehicle {
     }
 
     public void nextStop(int newX, int newY) {
-	Vehicle v = this;
-	if (newX != v.getLastStopX() && newY != v.getLastStopY()) {
+	if (newX == getLastStopX() && newY == getLastStopY()) {
 	    // no need to add a new stop
 	} else {
 	    // add intermediate stops
-	    while (newX != v.getLastStopX()) {
-		int nextX = v.getLastStopX();
-		int nextY = v.getLastStopY();
+	    while (newX != getLastStopX()) {
+		int nextX = getLastStopX();
+		int nextY = getLastStopY();
 
-		if (newX < v.getLastStopX()) {
-		    nextX += 1;
-		} else {
+		if (newX < getLastStopX()) {
 		    nextX -= 1;
+		} else {
+		    nextX += 1;
 		}
 
-		v.stopsX.add(nextX);
-		v.stopsY.add(nextY);
+		stopsX.add(nextX);
+		stopsY.add(nextY);
 	    }
 	}
+    }
+
+    public void tick() {
+	positionX = stopsX.get(0);
+	positionY = stopsY.get(0);
+	stopsX = stopsX.subList(1, stopsX.size() - 1);
+	stopsY = stopsY.subList(1, stopsY.size() - 1);
     }
 }
