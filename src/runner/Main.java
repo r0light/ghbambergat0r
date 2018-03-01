@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import io.Parser;
@@ -15,16 +16,19 @@ public class Main {
 
     public static void main(String[] args) throws ParserException {
 
-	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
-	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in",
+	// List<String> inputs = Arrays.asList("a_example.in",
+	// "b_should_be_easy.in");
+	// List<String> inputs = Arrays.asList("a_example.in",
+	// "b_should_be_easy.in",
 	// "c_no_hurry.in");
-	List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
+	List<String> inputs = Arrays.asList("b_should_be_easy.in", "c_no_hurry.in");
+	Semaphore semaphore = new Semaphore(1, true);
 
 	ExecutorService executor = Executors.newCachedThreadPool();
 	try {
 	    for (String input : inputs) {
 		Problem problem = new Parser(Paths.get("input/" + input)).parse();
-		Runner runner = new Runner(problem);
+		Runner runner = new Runner(problem, semaphore);
 		executor.submit(runner);
 	    }
 

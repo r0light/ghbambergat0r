@@ -2,6 +2,7 @@ package algo;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import io.OutputWriter;
 import model.Problem;
@@ -11,6 +12,13 @@ import model.SortByNearestDistance;
 import model.Vehicle;
 
 public class SimpleSolver implements Solver {
+
+    public Semaphore semaphore;
+
+    public SimpleSolver(Semaphore semaphore) {
+	super();
+	this.semaphore = semaphore;
+    }
 
     public Problem problem;
 
@@ -44,7 +52,7 @@ public class SimpleSolver implements Solver {
 		}
 	    }
 
-	    OutputWriter outputWriter = new OutputWriter(problem);
+	    OutputWriter outputWriter = new OutputWriter(problem, semaphore);
 	    // outputWriter.print();
 	    outputWriter.write("output/" + problem.name);
 	}
