@@ -76,7 +76,10 @@ public class Parser {
     private static Ride RideParser(String s) {
         String[] array = s.split(" ");
         int startX = Integer.parseInt(array[0]);
+        System.out.println("startX: " + startX);
         int startY = Integer.parseInt(array[1]);
+        System.out.println("startY: " + startY);
+
         int endX = Integer.parseInt(array[2]);
         int endY = Integer.parseInt(array[3]);
         int earliestStart = Integer.parseInt(array[4]);
