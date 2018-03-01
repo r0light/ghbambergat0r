@@ -32,7 +32,7 @@ public class Vehicle {
     }
 
     public boolean makesSense(Ride newRide) {
-	int timeAtStart = time + Math.abs(newRide.startX - positionX) + Math.abs(newRide.startY - positionY);
+	int timeAtStart = calculateTimeAtStart(newRide);
 	if (timeAtStart < newRide.earliestStart) {
 	    timeAtStart = newRide.earliestStart;
 	}
@@ -42,5 +42,14 @@ public class Vehicle {
 	    return true;
 	}
 	return false;
+    }
+
+    public int diffTime(Ride newRide) {
+	return calculateTimeAtStart(newRide) - newRide.earliestStart;
+    }
+
+    private int calculateTimeAtStart(Ride newRide) {
+	int timeAtStart = time + Math.abs(newRide.startX - positionX) + Math.abs(newRide.startY - positionY);
+	return timeAtStart;
     }
 }
