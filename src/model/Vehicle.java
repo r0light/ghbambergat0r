@@ -67,4 +67,26 @@ public class Vehicle {
 	int timeAtStart = time + Math.abs(newRide.startX - positionX) + Math.abs(newRide.startY - positionY);
 	return timeAtStart;
     }
+
+    public void nextStop(int newX, int newY) {
+	Vehicle v = this;
+	if (newX != v.getLastStopX() && newY != v.getLastStopY()) {
+	    // no need to add a new stop
+	} else {
+	    // add intermediate stops
+	    while (newX != v.getLastStopX()) {
+		int nextX = v.getLastStopX();
+		int nextY = v.getLastStopY();
+
+		if (newX < v.getLastStopX()) {
+		    nextX += 1;
+		} else {
+		    nextX -= 1;
+		}
+
+		v.stopsX.add(nextX);
+		v.stopsY.add(nextY);
+	    }
+	}
+    }
 }
