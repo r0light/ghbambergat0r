@@ -16,7 +16,9 @@ public class Main {
     public static void main(String[] args) throws ParserException {
 
 	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
-	List<String> inputs = Arrays.asList("a_example.in");
+	// List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in",
+	// "c_no_hurry.in");
+	List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in");
 
 	ExecutorService executor = Executors.newCachedThreadPool();
 	try {

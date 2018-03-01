@@ -88,22 +88,22 @@ public class Parser {
     // }
 
     private static Ride RideParser(String s) {
-	System.out.println("--- Parsing the ride: " + s);
+	// System.out.println("--- Parsing the ride: " + s);
 	String[] array = s.split(" ");
 	int startX = Integer.parseInt(array[0]);
-	System.out.println("startX: " + startX);
+	// System.out.println("startX: " + startX);
 	int startY = Integer.parseInt(array[1]);
-	System.out.println("startY: " + startY);
+	// System.out.println("startY: " + startY);
 	int endX = Integer.parseInt(array[2]);
-	System.out.println("endX: " + endX);
+	// System.out.println("endX: " + endX);
 	int endY = Integer.parseInt(array[3]);
-	System.out.println("endY: " + endY);
+	// System.out.println("endY: " + endY);
 	int earliestStart = Integer.parseInt(array[4]);
-	System.out.println("earliestStart: " + earliestStart);
+	// System.out.println("earliestStart: " + earliestStart);
 	int latestFinish = Integer.parseInt(array[5]);
-	System.out.println("latestFinish: " + latestFinish);
+	// System.out.println("latestFinish: " + latestFinish);
 	int id = -1;
-	System.out.println("--- Finished parsing the ride");
+	// System.out.println("--- Finished parsing the ride");
 	return new Ride(startX, startY, endX, endY, earliestStart, latestFinish, id);
     }
 

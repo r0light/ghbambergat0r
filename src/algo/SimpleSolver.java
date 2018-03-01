@@ -1,10 +1,13 @@
 package algo;
 
+import java.util.Collections;
 import java.util.List;
 
 import io.OutputWriter;
 import model.Problem;
 import model.Ride;
+import model.SortByEarliestStart;
+import model.SortByNearestDistance;
 import model.Vehicle;
 
 public class SimpleSolver implements Solver {
@@ -15,6 +18,11 @@ public class SimpleSolver implements Solver {
     public void compute() {
 	if (problem != null) {
 
+	    System.out.println("start " + problem.name);
+	    System.out.println(problem.noOfRides + "should be " + problem.rides.size());
+	    System.out.println(problem.noOfVehicles + "should be " + problem.vehicles.size());
+
+	    sort();
 	    List<Ride> rides = problem.rides;
 
 	    for (int i = 0; i < rides.size(); i++) {
@@ -37,6 +45,7 @@ public class SimpleSolver implements Solver {
 	    }
 
 	    OutputWriter outputWriter = new OutputWriter(problem);
+	    // outputWriter.print();
 	    outputWriter.write("output/" + problem.name);
 	}
 
@@ -45,5 +54,10 @@ public class SimpleSolver implements Solver {
     @Override
     public void setProblem(Problem problem) {
 	this.problem = problem;
+    }
+
+    private void sort() {
+	Collections.sort(problem.rides, new SortByEarliestStart());
+	Collections.sort(problem.rides, new SortByNearestDistance());
     }
 }
