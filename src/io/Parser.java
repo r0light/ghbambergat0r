@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import model.Problem;
+import model.Ride;
 
 public class Parser {
 
@@ -37,13 +38,20 @@ public class Parser {
             int steps = Integer.parseInt(initLine[5]);
             System.out.println("steps: " + steps);
 
-            List<Ride> rides = lines.subList(1, lines.size()).stream().parallel().map(Parser::RideParser).collect
-                    (Collectors.toList
-                    ());
+            List<Ride> ridesList = lines.subList(1, lines.size()).stream().parallel().map(Parser::RideParser).collect
+                    (Collectors.toList());
+            int i = 0;
+            for (Ride ride : ridesList) {
+                ride.id = i;
+                i++;
+            }
+            Problem problem = new Problem(path.getFileName().toString(), rows, columns, vehicles, rides, bonus, steps);
 
-            // TODO start parsing header
+            // List<Vehi>
 
-            return new Problem(path.getFileName().toString());
+            problem.rides = ridesList;
+
+            return problem;
         } catch (IOException e) {
             throw new ParserException(e);
         }
@@ -65,8 +73,16 @@ public class Parser {
         return parts;
     }
 
-    private static Ride RideParser(String s){
-        return null;
+    private static Ride RideParser(String s) {
+        String[] array = s.split(" ");
+        int startX = Integer.parseInt(array[0]);
+        int startY = Integer.parseInt(array[1]);
+        int endX = Integer.parseInt(array[2]);
+        int endY = Integer.parseInt(array[3]);
+        int earliestStart = Integer.parseInt(array[4]);
+        int latestFinish = Integer.parseInt(array[5]);
+        int id = -1;
+        return new Ride(startX, startY, endX, endY, earliestStart, latestFinish, id);
     }
 
 }
