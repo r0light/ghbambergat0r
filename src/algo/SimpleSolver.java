@@ -1,10 +1,12 @@
 package algo;
 
+import java.util.Collections;
 import java.util.List;
 
 import io.OutputWriter;
 import model.Problem;
 import model.Ride;
+import model.SortByEarliestStart;
 import model.Vehicle;
 
 public class SimpleSolver implements Solver {
@@ -15,6 +17,7 @@ public class SimpleSolver implements Solver {
     public void compute() {
 	if (problem != null) {
 
+	    sort();
 	    List<Ride> rides = problem.rides;
 
 	    for (int i = 0; i < rides.size(); i++) {
@@ -45,5 +48,9 @@ public class SimpleSolver implements Solver {
     @Override
     public void setProblem(Problem problem) {
 	this.problem = problem;
+    }
+
+    private void sort() {
+	Collections.sort(problem.rides, new SortByEarliestStart());
     }
 }
