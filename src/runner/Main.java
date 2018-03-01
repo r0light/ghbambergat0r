@@ -20,7 +20,7 @@ public class Main {
 	List<String> inputs = Arrays.asList("a_example.in", "b_should_be_easy.in", "c_no_hurry.in", "d_metropolis.in",
 		"e_high_bonus.in");
 
-	boolean doSimulate = false;
+	boolean doSimulate = true;
 
 	Semaphore semaphore = new Semaphore(1, true);
 
