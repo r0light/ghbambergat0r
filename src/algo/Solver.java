@@ -2,15 +2,10 @@ package algo;
 
 import model.Problem;
 
-public class Solver {
+interface Solver {
 
-    private final Problem problem;
+    public void compute();
 
-    public Solver(Problem p) {
-	this.problem = p;
-    }
+    public void setProblem(Problem problem);
 
-    public void compute() {
-
-    }
 }
