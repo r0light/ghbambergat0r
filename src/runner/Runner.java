@@ -2,7 +2,7 @@ package runner;
 
 import java.util.concurrent.Semaphore;
 
-import algo.BonusSolver;
+import algo.NextSolver;
 import model.Problem;
 
 public class Runner implements Runnable {
@@ -20,7 +20,8 @@ public class Runner implements Runnable {
 	// SimpleSolver solver = new SimpleSolver(semaphore);
 	// SwitchSolver solver = new SwitchSolver(semaphore);
 	// AdvancedSolver solver = new AdvancedSolver(semaphore);
-	BonusSolver solver = new BonusSolver(semaphore);
+	// BonusSolver solver = new BonusSolver(semaphore);
+	NextSolver solver = new NextSolver(semaphore);
 	solver.setProblem(this.problem);
 	solver.compute();
     }

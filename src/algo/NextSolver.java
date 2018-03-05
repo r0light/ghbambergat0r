@@ -12,11 +12,11 @@ import model.SortByEarliestStart;
 import model.SortByNearestDistance;
 import model.Vehicle;
 
-public class BonusSolver implements Solver {
+public class NextSolver implements Solver {
 
     public Semaphore semaphore;
 
-    public BonusSolver(Semaphore semaphore) {
+    public NextSolver(Semaphore semaphore) {
 	super();
 	this.semaphore = semaphore;
     }
@@ -61,17 +61,66 @@ public class BonusSolver implements Solver {
 			    }
 			}
 		    }
-		    if (!primaryCandidates.isEmpty()) {
-			int candidateId = primaryCandidates.get(primaryCandidates.size() - 1);
-			vehicles.get(i).addRide(rides.get(candidateId));
-			rides.remove(candidateId);
-		    } else {
-			if (!secondaryCandidates.isEmpty()) {
-			    int candidateId = secondaryCandidates.get(secondaryCandidates.size() - 1);
-			    vehicles.get(i).addRide(rides.get(candidateId));
-			    rides.remove(candidateId);
+
+		    int bestCandidate = -1;
+
+		    int primaryCandidateIndex = primaryCandidates.size() - 1;
+		    while (primaryCandidateIndex > 0) {
+			Vehicle testVehicle = new Vehicle(vehicles.get(i).time, vehicles.get(i).positionX,
+				vehicles.get(i).positionY, new ArrayList<Ride>(), 0);
+			int rideId = primaryCandidates.get(primaryCandidateIndex);
+			testVehicle.addRide(rides.get(rideId));
+			for (Ride nextRide : rides) {
+			    if (testVehicle.makesSense(nextRide)) {
+				bestCandidate = rideId;
+				break; // break for
+			    }
+			}
+			if (bestCandidate != -1) {
+			    break; // break while
+			} else {
+			    primaryCandidateIndex--;
 			}
 		    }
+
+		    if (bestCandidate == -1) {
+			int secondaryCandidateIndex = secondaryCandidates.size() - 1;
+			while (secondaryCandidateIndex > 0) {
+			    Vehicle testVehicle = new Vehicle(vehicles.get(i).time, vehicles.get(i).positionX,
+				    vehicles.get(i).positionY, new ArrayList<Ride>(), 0);
+			    int rideId = secondaryCandidates.get(secondaryCandidateIndex);
+			    testVehicle.addRide(rides.get(rideId));
+			    for (Ride nextRide : rides) {
+				if (testVehicle.makesSense(nextRide)) {
+				    bestCandidate = rideId;
+				    break; // break for
+				}
+			    }
+			    if (bestCandidate != -1) {
+				break; // break while
+			    } else {
+				secondaryCandidateIndex--;
+			    }
+			}
+		    }
+
+		    if (bestCandidate == -1) {
+			if (!primaryCandidates.isEmpty()) {
+			    int candidateId = primaryCandidates.get(primaryCandidates.size() - 1);
+			    vehicles.get(i).addRide(rides.get(candidateId));
+			    rides.remove(candidateId);
+			} else {
+			    if (!secondaryCandidates.isEmpty()) {
+				int candidateId = secondaryCandidates.get(secondaryCandidates.size() - 1);
+				vehicles.get(i).addRide(rides.get(candidateId));
+				rides.remove(candidateId);
+			    }
+			}
+		    } else {
+			vehicles.get(i).addRide(rides.get(bestCandidate));
+			rides.remove(bestCandidate);
+		    }
+
 		}
 		if (rides.size() == remainingRides) {
 		    break;
